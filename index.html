@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Online Group Chat</title>
+  <title>Mini Telegram Chat</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="chat-container">
+  <div class="container">
+    <h2>Mini Telegram</h2>
+
     <div id="chat-box"></div>
-    <input id="message-input" placeholder="Type message...">
+
+    <input type="text" id="username" placeholder="Your name" />
+    <input type="text" id="message" placeholder="Type a message..." />
     <button onclick="sendMessage()">Send</button>
   </div>
 
-  <script src="/socket.io/socket.io.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

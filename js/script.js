@@ -1,26 +1,29 @@
-const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
+// Dummy messages array
+let messages = [];
 
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+// Send message
+function sendMessage() {
+  const username = document.getElementById('username').value.trim();
+  const message = document.getElementById('message').value.trim();
 
-// Serve static files (HTML, CSS, JS)
-app.use(express.static('public'));
+  if (username && message) {
+    const fullMessage = `${username}: ${message}`;
+    messages.push(fullMessage);
+    updateChatBox();
+    document.getElementById('message').value = '';
+  }
+}
 
-io.on('connection', (socket) => {
-  console.log('A user connected');
+// Update chat box
+function updateChatBox() {
+  const chatBox = document.getElementById('chat-box');
+  chatBox.innerHTML = '';
 
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg); // Send message to everyone
+  messages.forEach(msg => {
+    const div = document.createElement('div');
+    div.textContent = msg;
+    chatBox.appendChild(div);
   });
 
-  socket.on('disconnect', () => {
-    console.log('A user disconnected');
-  });
-});
-
-server.listen(3000, () => {
-  console.log('Server running at http://localhost:3000');
-});
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
